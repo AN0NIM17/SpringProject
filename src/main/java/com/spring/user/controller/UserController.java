@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.user.models.User;
-import com.spring.user.repositories.UserRepository;
+import com.spring.user.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,36 +23,30 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	@GetMapping("/{id}")
-	public User get(@PathVariable Long id, User user) {
+	public User get(@PathVariable Long id) {
 		try {
-			return userRepository.findById(id).orElseThrow();
+			return userService.get(id);
 		} catch (NoSuchElementException e) {
 			log.error(e.toString());
 			return null;
 		}
-
 	}
 
 	@PostMapping
 	public Long create(@RequestBody User user) {
-		return userRepository.save(user).getId();
+		return userService.create(user);
 	}
 
 	@PutMapping("/{id}")
-	public Long update(@PathVariable Long id, @RequestBody User user) {
-		user.setId(id);
-		if (userRepository.existsById(id)) {
-			return userRepository.save(user).getId();
-		} else {
-			return null;
-		}
+	public User update(@PathVariable Long id, @RequestBody User user) {
+		return userService.update(id, user);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		userRepository.deleteById(id);
+		userService.delete(id);
 	}
 }
