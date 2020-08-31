@@ -14,7 +14,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.spring.address.repositories.AddressRepository;
+import com.spring.address.db.repositories.AddressRepository;
 
 
 @Configuration

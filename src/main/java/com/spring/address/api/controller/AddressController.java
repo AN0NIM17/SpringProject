@@ -1,6 +1,4 @@
-package com.spring.address.controller;
-
-import java.util.NoSuchElementException;
+package com.spring.address.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,47 +10,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.address.models.Address;
-import com.spring.address.repositories.AddressRepository;
-
-import lombok.extern.slf4j.Slf4j;
+import com.spring.address.api.dto.AddressDto;
+import com.spring.address.api.transformer.AddressDtoTransformer;
+import com.spring.address.db.models.Address;
+import com.spring.address.service.AddressService;
 
 @RestController
 @RequestMapping("/address")
-@Slf4j
 public class AddressController {
 
 	@Autowired
-	private AddressRepository addressRepository;
+	private AddressService addressService;
 
 	@GetMapping("/{id}")
 	public Address get(@PathVariable Long id) {
-		try {
-			return addressRepository.findById(id).orElseThrow();
-		} catch (NoSuchElementException e) {
-			log.error(e.toString());
-			return null;
-		}
+			return addressService.get(id);
 	}
 
 	@PostMapping
-	public Long create(@RequestBody Address address) {
-		Address address1 = addressRepository.save(address);
-		return address1.getId();
+	public Address create(@RequestBody AddressDto addressDto) {
+		return addressService.create(AddressDtoTransformer.transform(addressDto));
 	}
 
 	@PutMapping("/{id}")
-	public Long update(@PathVariable Long id, @RequestBody Address address) {
-		address.setId(id);
-		if (addressRepository.existsById(id)) {
-			return addressRepository.save(address).getId();
-		} else {
-			return null;
-		}
+	public Address update(@PathVariable Long id, @RequestBody AddressDto addressDto) {
+		return addressService.update(id, AddressDtoTransformer.transform(addressDto));
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
-		addressRepository.deleteById(id);
+		addressService.delete(id);
 	}
 }

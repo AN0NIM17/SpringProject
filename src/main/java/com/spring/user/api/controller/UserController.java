@@ -1,6 +1,4 @@
-package com.spring.user.controller;
-
-import java.util.NoSuchElementException;
+package com.spring.user.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.spring.user.models.User;
+import com.spring.user.api.dto.UserDto;
+import com.spring.user.api.transformer.UserDtoTransformer;
+import com.spring.user.db.models.User;
 import com.spring.user.service.UserService;
-
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/user")
-@Slf4j
 public class UserController {
 
 	@Autowired
@@ -27,22 +24,17 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public User get(@PathVariable Long id) {
-		try {
 			return userService.get(id);
-		} catch (NoSuchElementException e) {
-			log.error(e.toString());
-			return null;
-		}
 	}
 
 	@PostMapping
-	public Long create(@RequestBody User user) {
-		return userService.create(user);
+	public User create(@RequestBody UserDto userDto) {
+		return userService.create(UserDtoTransformer.transform(userDto));
 	}
 
 	@PutMapping("/{id}")
-	public User update(@PathVariable Long id, @RequestBody User user) {
-		return userService.update(id, user);
+	public User update(@PathVariable Long id, @RequestBody UserDto userDto) {
+		return userService.update(id, UserDtoTransformer.transform(userDto));
 	}
 
 	@DeleteMapping("/{id}")

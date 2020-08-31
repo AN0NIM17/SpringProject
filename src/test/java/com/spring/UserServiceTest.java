@@ -11,18 +11,18 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.spring.user.models.User;
-import com.spring.user.repositories.UserRepository;
+import com.spring.user.db.models.User;
+import com.spring.user.db.repositories.UserRepository;
 import com.spring.user.service.UserService;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
 	@InjectMocks
-	public UserService userService;
+	private UserService userService;
 
 	@Mock
-	public UserRepository userRepository;
+	private UserRepository userRepository;
 
 	private User user;
 
@@ -38,7 +38,7 @@ public class UserServiceTest {
 	public void create_getUser_idReturned() {
 		user = User.builder().id(7L).firstname("first").middlename("mid").lastname("last").build();
 		Mockito.when(userRepository.save(user)).thenReturn(user);
-		Long returedUser = userService.create(user);
+		User returedUser = userService.create(user);
 		assertThat(returedUser).isEqualTo(7L);
 	}
 	

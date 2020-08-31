@@ -1,24 +1,26 @@
-package com.spring.address.models;
+package com.spring.user.db.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
+@Data
 @NoArgsConstructor
-@Setter
-@Getter
-public class Address {
+@AllArgsConstructor
+@Builder
+public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String town;
-	private String street;
-	private String houseNumber;
+	private String firstname;
+	private String middlename;
+	private String lastname;
 }

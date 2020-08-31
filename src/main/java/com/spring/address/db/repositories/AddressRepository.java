@@ -1,8 +1,8 @@
-package com.spring.address.repositories;
+package com.spring.address.db.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.spring.address.models.Address;
+import com.spring.address.db.models.Address;
 
 public interface AddressRepository extends CrudRepository<Address, Long>{
 

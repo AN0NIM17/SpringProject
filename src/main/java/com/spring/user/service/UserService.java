@@ -1,30 +1,28 @@
 package com.spring.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import com.spring.user.models.User;
-import com.spring.user.repositories.UserRepository;
+import com.spring.user.db.models.User;
+import com.spring.user.db.repositories.UserRepository;
 
+@Service
 public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
 
 	public User get(Long id) {
-		return userRepository.findById(id).orElseThrow();
+		return userRepository.findById(id).get();
 	}
 
-	public Long create(User user) {
-		return userRepository.save(user).getId();
+	public User create(User user) {
+		return userRepository.save(user);
 	}
 
 	public User update(Long id, User user) {
 		user.setId(id);
-		if (userRepository.existsById(id)) {
-			return userRepository.save(user);
-		} else {
-			return null;
-		}
+		return userRepository.save(user);
 	}
 
 	public void delete(Long id) {

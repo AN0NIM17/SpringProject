@@ -16,8 +16,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.spring.user.models.User;
-import com.spring.user.repositories.UserRepository;
+import com.spring.user.db.models.User;
+import com.spring.user.db.repositories.UserRepository;
 
 @Configuration
 @EnableTransactionManagement
