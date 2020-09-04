@@ -40,7 +40,7 @@ public class AddressDBConfiguration {
 	public LocalContainerEntityManagerFactoryBean addressFactoryBean(@Qualifier("addressDataSource") DataSource addressDataSource) {
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		localContainerEntityManagerFactoryBean.setDataSource(addressDataSource);
-		localContainerEntityManagerFactoryBean.setPackagesToScan("com.spring.address.models");
+		localContainerEntityManagerFactoryBean.setPackagesToScan("com.spring.address.db.models");
 		localContainerEntityManagerFactoryBean.setPersistenceUnitName("Address");
 		
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
