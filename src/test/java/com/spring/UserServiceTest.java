@@ -24,11 +24,10 @@ public class UserServiceTest {
 	@Mock
 	private UserRepository userRepository;
 
-	private User user;
+	private User user = User.builder().id(1L).firstname("first").middlename("mid").lastname("last").build();
 
 	@Test
 	public void get_getId_userReturned() {
-		user = User.builder().id(1L).firstname("first").middlename("mid").lastname("last").build();
 	    Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 	    User returedUser = userService.get(1L);
 	    assertThat(returedUser).isEqualTo(user);
@@ -36,18 +35,21 @@ public class UserServiceTest {
 
 	@Test
 	public void create_getUser_idReturned() {
-		user = User.builder().id(7L).firstname("first").middlename("mid").lastname("last").build();
 		Mockito.when(userRepository.save(user)).thenReturn(user);
 		User returedUser = userService.create(user);
-		assertThat(returedUser).isEqualTo(7L);
+		assertThat(returedUser).isEqualTo(user);
 	}
 	
 	@Test
 	public void update_getIdAndUser_userReturned() {
-		user = User.builder().id(1L).firstname("first").middlename("mid").lastname("last").build();
 		Mockito.when(userRepository.save(user)).thenReturn(user);
-		Mockito.when(userRepository.existsById(1L)).thenReturn(true);
 		User returedUser = userService.update(1L, user);
 		assertThat(returedUser).isEqualTo(user);
+	}
+	
+	@Test
+	public void delete() {
+		userService.delete(1L);
+		Mockito.verify(userRepository).deleteById(1L); 
 	}
 }

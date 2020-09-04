@@ -22,7 +22,7 @@ public class AddressService {
 	
 	public Address update(Long id, Address address) {
 		address.setId(id);
-			return addressRepository.save(address);
+		return addressRepository.save(address);
 	}
 	
 	public void delete(Long id) {

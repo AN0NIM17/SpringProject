@@ -1,5 +1,7 @@
 package com.spring.user.api.dto;
 
+import javax.validation.constraints.Email;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,4 +17,6 @@ public class UserDto {
 	private String firstname;
 	private String middlename;
 	private String lastname;
+	@Email(message = "Enter Valid Email")
+	private String email;
 }

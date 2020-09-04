@@ -1,5 +1,6 @@
 package com.spring;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Optional;
@@ -24,21 +25,32 @@ public class AddressServiceTest {
 	@Mock 
 	private AddressRepository addressRepository;
 	
-	private Address address;
+	private Address address = Address.builder().id(1L).town("Khm").street("Prospect").houseNumber("34").build();
 	
 	@Test
 	public void get_getId_addressReturned() {
-		address = Address.builder().id(1L).town("Khm").street("Prospect").houseNumber("34").build();
 		Mockito.when(addressRepository.findById(1L)).thenReturn(Optional.of(address));
 		Address returnedAddress = addressService.get(1L);
 		assertNotNull(returnedAddress);
 	}
 	
-//	@Test
-//	public void create_getAddress_idReturned() {
-//		address = Address.builder().id(1L).town("Khm").street("Prospect").houseNumber("34").build();
-//		Mockito.when(addressRepository.save(address)).thenReturn(address);
-//		Address returnedAddress = addressService.create(address);
-//	}
-//	
+	@Test
+	public void create_getAddress_idReturned() {
+		Mockito.when(addressRepository.save(address)).thenReturn(address);
+		Address returnedAddress = addressService.create(address);
+		assertThat(returnedAddress).isNotNull();
+	}
+	
+	@Test
+	public void update_getAddress_idReturned() {
+		Mockito.when(addressRepository.save(address)).thenReturn(address);
+		Address retutnedAddress = addressService.update(1L, address);
+		assertThat(retutnedAddress).asString().contains("Prospect");
+	}
+	
+	@Test
+	public void delete() {
+		addressService.delete(1L);
+		Mockito.verify(addressRepository).deleteById(1L);
+	}
 }

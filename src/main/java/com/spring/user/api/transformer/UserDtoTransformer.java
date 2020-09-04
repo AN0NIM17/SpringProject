@@ -10,6 +10,7 @@ public class UserDtoTransformer {
 				.firstname(userDto.getFirstname())
 				.middlename(userDto.getMiddlename())
 				.lastname(userDto.getLastname())
+				.email(userDto.getEmail())
 				.build();
 	}
 }
