@@ -1,10 +1,10 @@
-package com.spring.address.service;
+package com.spring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.spring.address.db.models.Address;
-import com.spring.address.db.repositories.AddressRepository;
+import com.spring.db.entity.address.Address;
+import com.spring.db.repositories.address.AddressRepository;
 
 @Service
 public class AddressService {

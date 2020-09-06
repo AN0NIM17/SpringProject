@@ -12,9 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.spring.address.db.models.Address;
-import com.spring.address.db.repositories.AddressRepository;
-import com.spring.address.service.AddressService;
+import com.spring.db.entity.address.Address;
+import com.spring.db.repositories.address.AddressRepository;
+import com.spring.service.AddressService;
 
 @ExtendWith(MockitoExtension.class)
 public class AddressServiceTest {
@@ -25,7 +25,11 @@ public class AddressServiceTest {
 	@Mock 
 	private AddressRepository addressRepository;
 	
-	private Address address = Address.builder().id(1L).town("Khm").street("Prospect").houseNumber("34").build();
+	private final Address address = Address.builder()
+			.id(1L).town("Khm")
+			.street("Prospect")
+			.houseNumber("34")
+			.build();
 	
 	@Test
 	public void get_getId_addressReturned() {

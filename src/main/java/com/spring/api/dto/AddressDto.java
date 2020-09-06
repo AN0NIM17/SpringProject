@@ -1,4 +1,6 @@
-package com.spring.address.api.dto;
+package com.spring.api.dto;
+
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class AddressDto {
-
 	private Long id;
+	@NotNull
 	private String town;
+	@NotNull
 	private String street;
+	@NotNull
 	private String houseNumber;
 }

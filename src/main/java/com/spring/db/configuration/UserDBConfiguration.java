@@ -1,4 +1,4 @@
-package com.spring.configuration;
+package com.spring.db.configuration;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -16,12 +16,11 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.spring.user.db.models.User;
-import com.spring.user.db.repositories.UserRepository;
+import com.spring.db.entity.user.User;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = UserRepository.class, entityManagerFactoryRef = "userFactoryBean", transactionManagerRef = "userTransactionManager")
+@EnableJpaRepositories(basePackageClasses = com.spring.db.repositories.user.UserRepository.class, entityManagerFactoryRef = "userFactoryBean", transactionManagerRef = "userTransactionManager")
 public class UserDBConfiguration {
 	
 	@Primary

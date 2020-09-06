@@ -1,7 +1,7 @@
-package com.spring.address.api.transformer;
+package com.spring.api.transformer;
 
-import com.spring.address.api.dto.AddressDto;
-import com.spring.address.db.models.Address;
+import com.spring.api.dto.AddressDto;
+import com.spring.db.entity.address.Address;
 
 public class AddressDtoTransformer {
 	public static Address transform(AddressDto addressDto) {

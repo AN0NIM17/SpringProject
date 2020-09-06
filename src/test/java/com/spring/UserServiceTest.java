@@ -11,9 +11,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.spring.user.db.models.User;
-import com.spring.user.db.repositories.UserRepository;
-import com.spring.user.service.UserService;
+import com.spring.db.entity.user.User;
+import com.spring.db.repositories.user.UserRepository;
+import com.spring.service.UserService;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -24,13 +24,18 @@ public class UserServiceTest {
 	@Mock
 	private UserRepository userRepository;
 
-	private User user = User.builder().id(1L).firstname("first").middlename("mid").lastname("last").build();
+	private final User user = User.builder()
+			.id(1L)
+			.firstname("first")
+			.middlename("mid")
+			.lastname("last")
+			.build();
 
 	@Test
 	public void get_getId_userReturned() {
-	    Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-	    User returedUser = userService.get(1L);
-	    assertThat(returedUser).isEqualTo(user);
+		Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
+		User returedUser = userService.get(1L);
+		assertThat(returedUser).isEqualTo(user);
 	}
 
 	@Test
@@ -39,17 +44,17 @@ public class UserServiceTest {
 		User returedUser = userService.create(user);
 		assertThat(returedUser).isEqualTo(user);
 	}
-	
+
 	@Test
 	public void update_getIdAndUser_userReturned() {
 		Mockito.when(userRepository.save(user)).thenReturn(user);
 		User returedUser = userService.update(1L, user);
 		assertThat(returedUser).isEqualTo(user);
 	}
-	
+
 	@Test
 	public void delete() {
 		userService.delete(1L);
-		Mockito.verify(userRepository).deleteById(1L); 
+		Mockito.verify(userRepository).deleteById(1L);
 	}
 }

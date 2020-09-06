@@ -1,4 +1,4 @@
-package com.spring.address.db.models;
+package com.spring.db.entity.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Address {
-	
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String town;
-	private String street;
-	private String houseNumber;
+	private String firstname;
+	private String middlename;
+	private String lastname;
+	private String email;
 }

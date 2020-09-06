@@ -1,10 +1,9 @@
-package com.spring.user.api.transformer;
+package com.spring.api.transformer;
 
-import com.spring.user.api.dto.UserDto;
-import com.spring.user.db.models.User;
+import com.spring.api.dto.UserDto;
+import com.spring.db.entity.user.User;
 
 public class UserDtoTransformer {
-
 	public static User transform(UserDto userDto) {
 		return User.builder()
 				.firstname(userDto.getFirstname())

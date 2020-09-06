@@ -1,4 +1,4 @@
-package com.spring.configuration;
+package com.spring.db.configuration;
 
 import javax.sql.DataSource;
 
@@ -14,33 +14,28 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.spring.address.db.repositories.AddressRepository;
-
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackageClasses = AddressRepository.class, entityManagerFactoryRef = "addressFactoryBean", transactionManagerRef = "addressTransactionManager")
+@EnableJpaRepositories(basePackageClasses = com.spring.db.repositories.address.AddressRepository.class, entityManagerFactoryRef = "addressFactoryBean", transactionManagerRef = "addressTransactionManager")
 public class AddressDBConfiguration {
 	
-
 	@Bean
 	@ConfigurationProperties("spring.datasource2")
 	public DataSourceProperties addressDataSourceProperties() {
 		return new DataSourceProperties();
 	}
 	
-
 	@Bean
 	public DataSource addressDataSource(@Qualifier("addressDataSourceProperties") DataSourceProperties addressDataSourceProperties) {
 		return addressDataSourceProperties.initializeDataSourceBuilder().build();
 	}
-	
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean addressFactoryBean(@Qualifier("addressDataSource") DataSource addressDataSource) {
 		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		localContainerEntityManagerFactoryBean.setDataSource(addressDataSource);
-		localContainerEntityManagerFactoryBean.setPackagesToScan("com.spring.address.db.models");
+		localContainerEntityManagerFactoryBean.setPackagesToScan("com.spring.db.entity.address");
 		localContainerEntityManagerFactoryBean.setPersistenceUnitName("Address");
 		
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -49,7 +44,6 @@ public class AddressDBConfiguration {
 		return localContainerEntityManagerFactoryBean;
 	}
 	
-
 	@Bean
 	public PlatformTransactionManager addressTransactionManager() {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();
