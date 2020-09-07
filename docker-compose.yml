@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  spring:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+  
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+    volumes:
+      - ./mysqlData:/var/lib/mysql
