@@ -27,24 +27,26 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/{id}")
-	public ResponseEntity<User> get(@PathVariable Long id) {
-		User user = userService.get(id);
-		return ResponseEntity.status(HttpStatus.OK).body(user);
+	public ResponseEntity<UserDto> get(@PathVariable Long id) {
+		UserDto userDto = UserDtoTransformer.transform(userService.get(id));
+		return ResponseEntity.status(HttpStatus.OK).body(userDto);
 	}
 
 	@PostMapping
-	public ResponseEntity<User> create(@RequestBody @Valid UserDto userDto) {
+	public ResponseEntity<UserDto> create(@RequestBody @Valid UserDto userDto) {
 		User user = UserDtoTransformer.transform(userDto);
 		user = userService.create(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(user);
+		userDto = UserDtoTransformer.transform(user);
+		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<User> update(@PathVariable Long id, @RequestBody UserDto userDto) {
+	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto userDto) {
 		userDto.setId(id);
 		User user = UserDtoTransformer.transform(userDto);
 		user = userService.update(id, user);
-		return ResponseEntity.status(HttpStatus.OK).body(user);
+		userDto = UserDtoTransformer.transform(user);
+		return ResponseEntity.status(HttpStatus.OK).body(userDto);
 	}
 
 	@DeleteMapping("/{id}")

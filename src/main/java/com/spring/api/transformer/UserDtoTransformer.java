@@ -12,4 +12,13 @@ public class UserDtoTransformer {
 				.email(userDto.getEmail())
 				.build();
 	}
+	
+	public static UserDto transform(User user) {
+        return UserDto.builder()
+                .firstname(user.getFirstname())
+                .middlename(user.getMiddlename())
+                .lastname(user.getLastname())
+                .email(user.getEmail())
+                .build();
+    }
 }
