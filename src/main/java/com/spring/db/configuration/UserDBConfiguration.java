@@ -22,29 +22,31 @@ import com.spring.db.entity.user.User;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = com.spring.db.repositories.user.UserRepository.class, entityManagerFactoryRef = "userFactoryBean", transactionManagerRef = "userTransactionManager")
 public class UserDBConfiguration {
-	
-	@Primary
-	@Bean
-	@ConfigurationProperties("spring.datasource1")
-	public DataSourceProperties userDataSourceProperties() {
-		return new DataSourceProperties();
-	}
-	
-	@Primary
-	@Bean
-	public DataSource userDataSource(@Qualifier("userDataSourceProperties") DataSourceProperties userDataSourceProperties) {
-		return userDataSourceProperties.initializeDataSourceBuilder().build();
-	}
-	
-	@Primary
-	@Bean
-	public LocalContainerEntityManagerFactoryBean userFactoryBean(@Qualifier("userDataSource") DataSource userDataSource, EntityManagerFactoryBuilder builder) {
-		return builder.dataSource(userDataSource).packages(User.class).build();
-	}
-	
-	@Primary
-	@Bean
-	public PlatformTransactionManager userTransactionManager(EntityManagerFactory factory) {
-		return new JpaTransactionManager(factory);
-	}
+
+    @Primary
+    @Bean
+    @ConfigurationProperties("spring.datasource1")
+    public DataSourceProperties userDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Primary
+    @Bean
+    public DataSource userDataSource(
+            @Qualifier("userDataSourceProperties") DataSourceProperties userDataSourceProperties) {
+        return userDataSourceProperties.initializeDataSourceBuilder().build();
+    }
+
+    @Primary
+    @Bean
+    public LocalContainerEntityManagerFactoryBean userFactoryBean(
+            @Qualifier("userDataSource") DataSource userDataSource, EntityManagerFactoryBuilder builder) {
+        return builder.dataSource(userDataSource).packages(User.class).build();
+    }
+
+    @Primary
+    @Bean
+    public PlatformTransactionManager userTransactionManager(EntityManagerFactory factory) {
+        return new JpaTransactionManager(factory);
+    }
 }

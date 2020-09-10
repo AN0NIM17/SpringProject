@@ -31,8 +31,8 @@ public class UserServiceTest {
 			.lastName("last")
 			.build();
 
-	@Test
-	public void get_getId_userReturned() {
+    @Test
+    public void get_getId_userReturned() {
 		Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 		User returedUser = userService.get(1L);
 		assertThat(returedUser).isEqualTo(user);

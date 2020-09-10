@@ -5,14 +5,14 @@ import com.spring.db.entity.address.Address;
 
 public class AddressDtoTransformer {
     public static Address transform(AddressDto addressDto) {
-        return Address.builder()
-                .id(addressDto.getId())
-                .city(addressDto.getCity())
-                .address(addressDto.getAddress())
-                .build();
+        return buildAddress(addressDto, addressDto.getId());
     }
 
     public static Address transform(AddressDto addressDto, Long id) {
+        return buildAddress(addressDto, id);
+    }
+    
+    private static Address buildAddress(AddressDto addressDto, Long id) {
         return Address.builder()
                 .id(id)
                 .city(addressDto.getCity())

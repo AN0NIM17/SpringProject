@@ -23,28 +23,28 @@ import com.spring.service.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<UserDto> get(@PathVariable Long id) {
-		return ResponseEntity.status(HttpStatus.OK).body(UserDtoTransformer.transform(userService.get(id)));
-	}
+    @GetMapping("/{id}")
+    public UserDto get(@PathVariable Long id) {
+        return UserDtoTransformer.transform(userService.get(id));
+    }
 
-	@PostMapping
-	public ResponseEntity<UserDto> create(@RequestBody @Valid UserDto userDto) {
-		User user = userService.create(UserDtoTransformer.transform(userDto));
-		return ResponseEntity.status(HttpStatus.CREATED).body(UserDtoTransformer.transform(user));
-	}
+    @PostMapping
+    public ResponseEntity<UserDto> create(@RequestBody @Valid UserDto userDto) {
+        User user = userService.create(UserDtoTransformer.transform(userDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserDtoTransformer.transform(user));
+    }
 
-	@PutMapping("/{id}")
-	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto userDto) {
-		User user = userService.update(id, UserDtoTransformer.transform(userDto, id));
-		return ResponseEntity.status(HttpStatus.OK).body(UserDtoTransformer.transform(user));
-	}
+    @PutMapping("/{id}")
+    public UserDto update(@PathVariable Long id, @RequestBody UserDto userDto) {
+        User user = userService.update(id, UserDtoTransformer.transform(userDto, id));
+        return UserDtoTransformer.transform(user);
+    }
 
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		userService.delete(id);
-	}
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+    }
 }

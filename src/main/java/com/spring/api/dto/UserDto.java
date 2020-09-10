@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UserDto {
-	private Long id;
-	@NotEmpty
-	private String firstName;
-	@NotEmpty
-	private String middleName;
-	@NotNull
-	private String lastName;
-	@Email
-	@NotNull
-	private String email;
+    private Long id;
+    @NotEmpty
+    private String firstName;
+    @NotEmpty
+    private String middleName;
+    @NotNull
+    private String lastName;
+    @Email
+    @NotNull
+    private String email;
 }

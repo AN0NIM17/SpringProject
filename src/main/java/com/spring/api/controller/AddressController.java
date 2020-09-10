@@ -21,28 +21,28 @@ import com.spring.service.AddressService;
 @RequestMapping("/address")
 public class AddressController {
 
-	@Autowired
-	private AddressService addressService;
+    @Autowired
+    private AddressService addressService;
 
-	@GetMapping("/{id}")
-	public ResponseEntity<AddressDto> get(@PathVariable Long id) {
-		return ResponseEntity.ok(AddressDtoTransformer.transform(addressService.get(id)));
-	}
+    @GetMapping("/{id}")
+    public AddressDto get(@PathVariable Long id) {
+        return AddressDtoTransformer.transform(addressService.get(id));
+    }
 
-	@PostMapping
-	public ResponseEntity<AddressDto> create(@RequestBody AddressDto addressDto) {
-		Address address = addressService.create(AddressDtoTransformer.transform(addressDto));
-		return ResponseEntity.status(HttpStatus.CREATED).body(AddressDtoTransformer.transform(address));
-	}
+    @PostMapping
+    public ResponseEntity<AddressDto> create(@RequestBody AddressDto addressDto) {
+        Address address = addressService.create(AddressDtoTransformer.transform(addressDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(AddressDtoTransformer.transform(address));
+    }
 
-	@PutMapping("/{id}")
-	public ResponseEntity<AddressDto> update(@PathVariable Long id, @RequestBody AddressDto addressDto) {
-		Address address = addressService.update(id, AddressDtoTransformer.transform(addressDto, id));
-		return ResponseEntity.ok(AddressDtoTransformer.transform(address));
-	}
+    @PutMapping("/{id}")
+    public AddressDto update(@PathVariable Long id, @RequestBody AddressDto addressDto) {
+        Address address = addressService.update(id, AddressDtoTransformer.transform(addressDto, id));
+        return AddressDtoTransformer.transform(address);
+    }
 
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		addressService.delete(id);
-	}
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        addressService.delete(id);
+    }
 }

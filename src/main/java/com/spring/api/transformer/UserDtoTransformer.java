@@ -5,16 +5,15 @@ import com.spring.db.entity.user.User;
 
 public class UserDtoTransformer {
     public static User transform(UserDto userDto) {
-        return User.builder()
-                .id(userDto.getId())
-                .firstName(userDto.getFirstName())
-                .middleName(userDto.getMiddleName())
-                .lastName(userDto.getLastName())
-                .email(userDto.getEmail())
-                .build();
+        return buildUser(userDto, userDto.getId());
     }
 
     public static User transform(UserDto userDto, Long id) {
+        return buildUser(userDto, id);
+
+    }
+
+    private static User buildUser(UserDto userDto, Long id) {
         return User.builder()
                 .id(id)
                 .firstName(userDto.getFirstName())

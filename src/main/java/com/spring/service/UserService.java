@@ -9,23 +9,23 @@ import com.spring.db.repositories.user.UserRepository;
 @Service
 public class UserService {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	public User get(Long id) {
-		return userRepository.findById(id).get();
-	}
+    public User get(Long id) {
+        return userRepository.findById(id).get();
+    }
 
-	public User create(User user) {
-		return userRepository.save(user);
-	}
+    public User create(User user) {
+        return userRepository.save(user);
+    }
 
-	public User update(Long id, User user) {
-		user.setId(id);
-		return userRepository.save(user);
-	}
+    public User update(Long id, User user) {
+        user.setId(id);
+        return userRepository.save(user);
+    }
 
-	public void delete(Long id) {
-		userRepository.deleteById(id);
-	}
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 }

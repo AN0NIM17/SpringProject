@@ -14,40 +14,42 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackageClasses = com.spring.db.repositories.address.AddressRepository.class, entityManagerFactoryRef = "addressFactoryBean", transactionManagerRef = "addressTransactionManager")
 public class AddressDBConfiguration {
-	
-	@Bean
-	@ConfigurationProperties("spring.datasource2")
-	public DataSourceProperties addressDataSourceProperties() {
-		return new DataSourceProperties();
-	}
-	
-	@Bean
-	public DataSource addressDataSource(@Qualifier("addressDataSourceProperties") DataSourceProperties addressDataSourceProperties) {
-		return addressDataSourceProperties.initializeDataSourceBuilder().build();
-	}
 
-	@Bean
-	public LocalContainerEntityManagerFactoryBean addressFactoryBean(@Qualifier("addressDataSource") DataSource addressDataSource) {
-		LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
-		localContainerEntityManagerFactoryBean.setDataSource(addressDataSource);
-		localContainerEntityManagerFactoryBean.setPackagesToScan("com.spring.db.entity.address");
-		localContainerEntityManagerFactoryBean.setPersistenceUnitName("Address");
-		
-		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-		vendorAdapter.setGenerateDdl(true);
-		localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
-		return localContainerEntityManagerFactoryBean;
-	}
-	
-	@Bean
-	public PlatformTransactionManager addressTransactionManager() {
-		JpaTransactionManager transactionManager = new JpaTransactionManager();
-		transactionManager.setEntityManagerFactory(addressFactoryBean(addressDataSource(addressDataSourceProperties())).getObject());
-		return transactionManager;
-	}
+    @Bean
+    @ConfigurationProperties("spring.datasource2")
+    public DataSourceProperties addressDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean
+    public DataSource addressDataSource(
+            @Qualifier("addressDataSourceProperties") DataSourceProperties addressDataSourceProperties) {
+        return addressDataSourceProperties.initializeDataSourceBuilder().build();
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean addressFactoryBean(
+            @Qualifier("addressDataSource") DataSource addressDataSource) {
+        LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
+        localContainerEntityManagerFactoryBean.setDataSource(addressDataSource);
+        localContainerEntityManagerFactoryBean.setPackagesToScan("com.spring.db.entity.address");
+        localContainerEntityManagerFactoryBean.setPersistenceUnitName("Address");
+
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        vendorAdapter.setGenerateDdl(true);
+        localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
+        return localContainerEntityManagerFactoryBean;
+    }
+
+    @Bean
+    public PlatformTransactionManager addressTransactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(
+                addressFactoryBean(addressDataSource(addressDataSourceProperties())).getObject());
+        return transactionManager;
+    }
 }

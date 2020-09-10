@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class AddressDto {
-	private Long id;
-	@NotNull
-	private String city;
-	@NotNull
-	private String address;
+    private Long id;
+    @NotNull
+    private String city;
+    @NotNull
+    private String address;
 }
