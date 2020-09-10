@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 public class AddressDto {
 	private Long id;
 	@NotNull
-	private String town;
+	private String city;
 	@NotNull
-	private String street;
-	@NotNull
-	private String houseNumber;
+	private String address;
 }

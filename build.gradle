@@ -21,19 +21,12 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
-	// https://mvnrepository.com/artifact/javax.persistence/javax.persistence-api
-	compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
-	
-	// https://mvnrepository.com/artifact/org.mockito/mockito-core
-	testCompile group: 'org.mockito', name: 'mockito-core', version: '3.5.2'
-	
-	// https://mvnrepository.com/artifact/org.assertj/assertj-core
-	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.16.1'
-	
-	// https://mvnrepository.com/artifact/javax.validation/validation-api
-	compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '3.5.2'
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.16.1'
+	implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 	
 }
 

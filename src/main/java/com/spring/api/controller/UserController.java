@@ -28,30 +28,23 @@ public class UserController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<UserDto> get(@PathVariable Long id) {
-		UserDto userDto = UserDtoTransformer.transform(userService.get(id));
-		return ResponseEntity.status(HttpStatus.OK).body(userDto);
+		return ResponseEntity.status(HttpStatus.OK).body(UserDtoTransformer.transform(userService.get(id)));
 	}
 
 	@PostMapping
 	public ResponseEntity<UserDto> create(@RequestBody @Valid UserDto userDto) {
-		User user = UserDtoTransformer.transform(userDto);
-		user = userService.create(user);
-		userDto = UserDtoTransformer.transform(user);
-		return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+		User user = userService.create(UserDtoTransformer.transform(userDto));
+		return ResponseEntity.status(HttpStatus.CREATED).body(UserDtoTransformer.transform(user));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto userDto) {
-		userDto.setId(id);
-		User user = UserDtoTransformer.transform(userDto);
-		user = userService.update(id, user);
-		userDto = UserDtoTransformer.transform(user);
-		return ResponseEntity.status(HttpStatus.OK).body(userDto);
+		User user = userService.update(id, UserDtoTransformer.transform(userDto, id));
+		return ResponseEntity.status(HttpStatus.OK).body(UserDtoTransformer.transform(user));
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		userService.delete(id);
-		ResponseEntity.status(HttpStatus.OK);
 	}
 }

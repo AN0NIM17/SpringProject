@@ -26,9 +26,8 @@ public class AddressServiceTest {
 	private AddressRepository addressRepository;
 	
 	private final Address address = Address.builder()
-			.id(1L).town("Khm")
-			.street("Prospect")
-			.houseNumber("34")
+			.id(1L).city("Khm")
+			.address("Prospect")
 			.build();
 	
 	@Test

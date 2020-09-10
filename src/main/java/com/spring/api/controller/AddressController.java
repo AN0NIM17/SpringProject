@@ -26,30 +26,23 @@ public class AddressController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<AddressDto> get(@PathVariable Long id) {
-		AddressDto addressDto = AddressDtoTransformer.transform(addressService.get(id));
-		return ResponseEntity.ok(addressDto);
+		return ResponseEntity.ok(AddressDtoTransformer.transform(addressService.get(id)));
 	}
 
 	@PostMapping
 	public ResponseEntity<AddressDto> create(@RequestBody AddressDto addressDto) {
-		Address address = AddressDtoTransformer.transform(addressDto);
-		address = addressService.create(address);
-		addressDto = AddressDtoTransformer.transform(address);
-		return ResponseEntity.status(HttpStatus.CREATED).body(addressDto);
+		Address address = addressService.create(AddressDtoTransformer.transform(addressDto));
+		return ResponseEntity.status(HttpStatus.CREATED).body(AddressDtoTransformer.transform(address));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<AddressDto> update(@PathVariable Long id, @RequestBody AddressDto addressDto) {
-		addressDto.setId(id);
-		Address address =  AddressDtoTransformer.transform(addressDto);
-		address = addressService.update(id, address);
-		addressDto = AddressDtoTransformer.transform(address);
-		return ResponseEntity.ok(addressDto);
+		Address address = addressService.update(id, AddressDtoTransformer.transform(addressDto, id));
+		return ResponseEntity.ok(AddressDtoTransformer.transform(address));
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		addressService.delete(id);
-		ResponseEntity.ok();
 	}
 }

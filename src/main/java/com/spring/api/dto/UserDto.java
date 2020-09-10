@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserDto {
 	private Long id;
-	@NotEmpty(message = "Enter your firstname")
-	private String firstname;
-	@NotEmpty(message = "Enter your middlename")
-	private String middlename;
+	@NotEmpty
+	private String firstName;
+	@NotEmpty
+	private String middleName;
 	@NotNull
-	private String lastname;
-	@Email(message = "Enter Valid Email")
+	private String lastName;
+	@Email
 	@NotNull
 	private String email;
 }

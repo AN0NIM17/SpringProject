@@ -26,9 +26,9 @@ public class UserServiceTest {
 
 	private final User user = User.builder()
 			.id(1L)
-			.firstname("first")
-			.middlename("mid")
-			.lastname("last")
+			.firstName("first")
+			.middleName("mid")
+			.lastName("last")
 			.build();
 
 	@Test
